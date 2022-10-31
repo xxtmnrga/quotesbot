@@ -64,6 +64,8 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
+ITEM_PIPELINES = {'scrapy.pipelines.images.ImagesPipeline': 1}
+IMAGES_STORE = '/path/to/valid/dir'
 #ITEM_PIPELINES = {
 #    'quotesbot.pipelines.SomePipeline': 300,
 #}
