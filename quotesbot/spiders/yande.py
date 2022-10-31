@@ -11,7 +11,7 @@ class ToScrapeSpiderXPath(scrapy.Spider):
     def parse(self, response):
         for quote in response.xpath('//a[@class="thumb"]'):
             yield {
-                'text': quote.xpath('./img').extract_first(),
+                'text': quote.xpath('./img/@src').extract_first(),
             }
 
         next_page_url = response.xpath('//a[@class="next_page"]/@href').extract_first()
