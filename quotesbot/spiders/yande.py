@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import scrapy
-from imgsPro.items import ImgsproItem
 
 
 class ToScrapeSpiderXPath(scrapy.Spider):
@@ -13,7 +12,7 @@ class ToScrapeSpiderXPath(scrapy.Spider):
         for quote in response.xpath('//a[@class="thumb"]'):
             yield {
                 'imgurl': quote.xpath('./img/@src').extract_first(),
-                item['src'] = quote.xpath('./img/@src').extract_first()
+                'imgdata': scrapy.Request(quote.xpath('./img/@src').extract_first()),
             }
 
         next_page_url = response.xpath('//a[@class="next_page"]/@href').extract_first()
