@@ -1,0 +1,21 @@
+# -*- coding: utf-8 -*-
+import scrapy
+
+
+class ToScrapeSpiderXPath(scrapy.Spider):
+    name = 'konachan'
+    start_urls = [
+        'https://konachan.com/post',
+    ]
+
+    def parse(self, response):
+        for quote in response.xpath('//a[@class="thumb"]'):
+            yield {
+                'imgurl': quote.xpath('./img/@src').extract_first(),
+                'imgtitle': quote.xpath('./img/@title').extract_first(),
+            }
+
+        next_page_url = response.xpath('//a[@class="next_page"]/@href').extract_first()
+        if next_page_url is not None:
+            yield scrapy.Request(response.urljoin(next_page_url))
+
